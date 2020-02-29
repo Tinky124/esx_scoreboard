@@ -3,5 +3,7 @@
  https://imgur.com/HyUkjas
  
 ### in-game commands
-  1. /ctoggleid
-  2. /crefresh
+```
+ /ctoggleid
+ /crefresh
+```
