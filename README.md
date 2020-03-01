@@ -1,7 +1,10 @@
 # esx_scoreboard
  this is an edited version of esx_scoreboard
  https://imgur.com/HyUkjas
- 
+### Install
+ ```
+ start esx_scoreboard
+ ```
 ### in-game commands
 ```
  /ctoggleid
