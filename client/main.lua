@@ -13,20 +13,20 @@ local Keys = {
 local idVisable = true
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
-	Citizen.Wait(2000)
+	Wait(2000)
 	ESX.TriggerServerCallback('esx_scoreboard:getConnectedPlayers', function(connectedPlayers)
 		UpdatePlayerTable(connectedPlayers)
 	end)
 end)
 
-Citizen.CreateThread(function()
-	Citizen.Wait(500)
+CreateThread(function()
+	Wait(500)
 	SendNUIMessage({
 		action = 'updateServerInfo',
 
@@ -63,7 +63,7 @@ end)
 
 
 function UpdatePlayerTable(connectedPlayers)
-	local formattedPlayerList, num = {}, 1
+    local formattedPlayerList, num = {}, 1
     local players = 0
 
 	for k,v in pairs(connectedPlayers) do
@@ -95,27 +95,16 @@ function UpdatePlayerTable(connectedPlayers)
 	})
 
 end
-
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-
-		if IsControlJustReleased(0, Keys['F10']) and IsInputDisabled(0) then
-			ToggleScoreBoard()
-			Citizen.Wait(200)
-
-		-- D-pad up on controllers works, too!
-		elseif IsControlJustReleased(0, 172) and not IsInputDisabled(0) then
-			ToggleScoreBoard()
-			Citizen.Wait(200)
-		end
-	end
+--Command Support
+RegisterCommand('scoreboard', function()
+	ToggleScoreBoard()
 end)
-
+--Key register
+RegisterKeyMapping('scoreboard', ('Scoreboard'), 'keyboard', 'F10')
 -- Close scoreboard when game is paused
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(300)
+		Wait(300)
 
 		if IsPauseMenuActive() and not IsPaused then
 			IsPaused = true
